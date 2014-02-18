@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/croggle-android"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry kind="lib" path="/croggle-android/croggle/libs/gdx-freetype.jar" sourcepath="/croggle-android/croggle/libs/source/gdx-freetype-sources.jar"/>
+	<classpathentry kind="lib" path="/croggle-android/croggle/libs/gdx.jar" sourcepath="/croggle-android/croggle/libs/source/gdx-sources.jar"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>
