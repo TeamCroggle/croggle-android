@@ -1,11 +1,12 @@
 package de.croggle.data;
 
+import static de.croggle.data.LocalizationHelper._;
+
 import java.util.Locale;
 
+import android.test.InstrumentationTestCase;
 import de.croggle.backends.LocalizationBackend;
 import de.croggle.backends.android.AndroidLocalizationBackend;
-import android.test.InstrumentationTestCase;
-import static de.croggle.data.LocalizationHelper._;
 
 public class AndroidLocalizationBackendTest extends InstrumentationTestCase {
 
@@ -19,9 +20,7 @@ public class AndroidLocalizationBackendTest extends InstrumentationTestCase {
 	}
 
 	public void testAppName() {
-		String expected = "Croggle Test Test"; // no clue why it results in this
-												// name, but it should be
-												// correct
+		String expected = "Croggle Test";
 		String actual = _("app_name");
 
 		assertEquals(expected, actual);
