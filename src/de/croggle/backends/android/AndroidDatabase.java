@@ -8,7 +8,7 @@ import de.croggle.backends.sqlite.Database;
 
 public class AndroidDatabase implements Database {
 
-	private final SQLiteDatabase db;
+	final SQLiteDatabase db;
 
 	public AndroidDatabase(SQLiteDatabase db) {
 		this.db = db;

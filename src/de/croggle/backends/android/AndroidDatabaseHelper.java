@@ -5,24 +5,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import de.croggle.backends.sqlite.Database;
 import de.croggle.backends.sqlite.DatabaseHelper;
-import de.croggle.data.persistence.manager.AchievementManager;
-import de.croggle.data.persistence.manager.LevelProgressManager;
-import de.croggle.data.persistence.manager.ProfileManager;
-import de.croggle.data.persistence.manager.SettingManager;
-import de.croggle.data.persistence.manager.StatisticManager;
 
-public class AndroidDatabaseHelper implements DatabaseHelper {
+public class AndroidDatabaseHelper extends DatabaseHelper {
 	private final Helper helper;
-
-	/**
-	 * The name of the database.
-	 */
-	public static final String DATABASE_NAME = "persistenceDB";
-
-	/**
-	 * The version number of the database.
-	 */
-	private static final int DATABASE_Version = 2;
 
 	/**
 	 * Creates a new DatabaseHelper which is used for managing the database.
@@ -52,23 +37,13 @@ public class AndroidDatabaseHelper implements DatabaseHelper {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			db.execSQL(AchievementManager.CREATE_TABLE);
-			db.execSQL(LevelProgressManager.CREATE_TABLE);
-			db.execSQL(ProfileManager.CREATE_TABLE);
-			db.execSQL(SettingManager.CREATE_TABLE);
-			db.execSQL(StatisticManager.CREATE_TABLE);
+			AndroidDatabaseHelper.this.onCreate(new AndroidDatabase(db));
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			db.execSQL("DROP TABLE IF EXISTS " + AchievementManager.TABLE_NAME);
-			db.execSQL("DROP TABLE IF EXISTS "
-					+ LevelProgressManager.TABLE_NAME);
-			db.execSQL("DROP TABLE IF EXISTS " + ProfileManager.TABLE_NAME);
-			db.execSQL("DROP TABLE IF EXISTS " + SettingManager.TABLE_NAME);
-			db.execSQL("DROP TABLE IF EXISTS " + StatisticManager.TABLE_NAME);
-
-			onCreate(db);
+			AndroidDatabaseHelper.this.onUpgrade(new AndroidDatabase(db),
+					oldVersion, newVersion);
 		}
 	}
 }
