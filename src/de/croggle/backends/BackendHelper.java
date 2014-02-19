@@ -26,7 +26,7 @@ public class BackendHelper {
 	private BackendHelper() {
 	}
 
-	public static Object getWakeLock() {
+	private static Object getWakeLock() {
 		Application app = Gdx.app;
 		Method getWakeLock = null;
 		try {

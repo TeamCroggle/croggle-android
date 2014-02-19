@@ -32,7 +32,7 @@ public class AndroidDatabase implements Database {
 	@Override
 	public int update(String table, ContentValues values, String whereClause,
 			String[] whereArgs) {
-		return db.update(table, (android.content.ContentValues) values.get(),
+		return db.update(table, ((AndroidContentValues) values).content,
 				whereClause, whereArgs);
 	}
 
@@ -44,7 +44,7 @@ public class AndroidDatabase implements Database {
 	@Override
 	public long insert(String table, String nullColumnHack, ContentValues values) {
 		return db.insert(table, nullColumnHack,
-				(android.content.ContentValues) values.get());
+				((AndroidContentValues) values).content);
 	}
 
 	@Override
