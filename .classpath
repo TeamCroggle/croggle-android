@@ -12,5 +12,6 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="lib" path="croggle/libs/gdx-freetype.jar" sourcepath="croggle/libs/source/gdx-freetype-sources.jar"/>
 	<classpathentry kind="lib" path="croggle/libs/gdx.jar" sourcepath="croggle/libs/source/gdx-sources.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-backend-android.jar" sourcepath="libs/source/gdx-backend-android-sources.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

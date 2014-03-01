@@ -9,6 +9,8 @@ import com.badlogic.gdx.backends.android.AndroidGraphics;
 import com.badlogic.gdx.backends.android.surfaceview.FillResolutionStrategy;
 
 import de.croggle.AlligatorApp;
+import de.croggle.backends.AndroidBackendHelper;
+import de.croggle.backends.BackendHelper;
 import de.croggle.backends.android.AndroidLocalizationBackend;
 import de.croggle.data.LocalizationHelper;
 
@@ -54,7 +56,7 @@ public class TestHelper {
 	public static void setupAll(Context context) {
 		setupContext(context);
 		setupGdx();
-		setupLocalizationBackend();
+		setupCroggleBackends();
 	}
 
 	public static void setupGdx() {
@@ -133,7 +135,7 @@ public class TestHelper {
 		if (app == null || alligatorContextChanged) {
 			setupGdxFiles();
 			setupGdxGraphics();
-			setupLocalizationBackend();
+			setupCroggleBackends();
 			AlligatorApp.HEADLESS = true;
 			app = new AlligatorApp();
 			app.create();
@@ -147,7 +149,7 @@ public class TestHelper {
 		return testContext;
 	}
 
-	public static void setupLocalizationBackend() {
+	public static void setupCroggleBackends() {
 		TestActivity tc = getTestContext();
 		if (tc == null) {
 			throw new IllegalStateException(
@@ -158,6 +160,11 @@ public class TestHelper {
 			localizationBackend = new AndroidLocalizationBackend(tc);
 			LocalizationHelper.setBackend(localizationBackend);
 			localizationContextChanged = false;
+		}
+
+		if (!BackendHelper.isInitialized()) {
+			AndroidBackendHelper backendHelper = new AndroidBackendHelper();
+			backendHelper.set();
 		}
 	}
 }

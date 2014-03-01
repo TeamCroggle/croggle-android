@@ -33,7 +33,7 @@ public class AndroidLocalizationBackend implements LocalizationBackend {
 	 *            the android context to access string resources
 	 */
 	public AndroidLocalizationBackend(Context c) {
-		this.context = c;
+		context = c;
 	}
 
 	@Override

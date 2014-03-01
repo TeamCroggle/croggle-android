@@ -22,8 +22,8 @@ import de.croggle.backends.sqlite.DatabaseHelper;
  * The class's methods degrade gracefully, meaning that they silently ignore if
  * a certain functionality is currently unavailable.
  */
-public class BackendHelper {
-	private BackendHelper() {
+public class AndroidBackendHelper extends BackendHelper {
+	public AndroidBackendHelper() {
 	}
 
 	private static Object getWakeLock() {
@@ -48,7 +48,12 @@ public class BackendHelper {
 		}
 	}
 
-	public static boolean acquireWakeLock() {
+	public static Context getAndroidContext() {
+		return (Context) Gdx.app;
+	}
+
+	@Override
+	protected boolean wakelockAcquire() {
 		Object wakeLock = getWakeLock();
 		if (wakeLock != null) {
 			Method acquire = null;
@@ -69,7 +74,8 @@ public class BackendHelper {
 		return false;
 	}
 
-	public static boolean releaseWakeLock() {
+	@Override
+	protected boolean wakelockRelease() {
 		Object wakeLock = getWakeLock();
 		if (wakeLock != null) {
 			Method release = null;
@@ -90,19 +96,18 @@ public class BackendHelper {
 		return false;
 	}
 
-	public static Context getAndroidContext() {
-		return (Context) Gdx.app;
-	}
-
-	public static DatabaseHelper getNewDatabaseHelper() {
+	@Override
+	protected DatabaseHelper instantiateDatabaseHelper() {
 		return new AndroidDatabaseHelper(getAndroidContext());
 	}
 
-	public static ContentValues getNewContentValues() {
+	@Override
+	protected ContentValues instantiateContentValues() {
 		return new AndroidContentValues();
 	}
 
-	public static String getAssetDirPath() {
+	@Override
+	protected String assetDirPath() {
 		return "";
 	}
 }

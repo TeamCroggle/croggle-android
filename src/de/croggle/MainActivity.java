@@ -6,6 +6,8 @@ import android.os.PowerManager.WakeLock;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
+import de.croggle.backends.AndroidBackendHelper;
+import de.croggle.backends.BackendHelper;
 import de.croggle.backends.LocalizationBackend;
 import de.croggle.backends.android.AndroidLocalizationBackend;
 import de.croggle.data.LocalizationHelper;
@@ -27,6 +29,9 @@ public class MainActivity extends AndroidApplication {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		BackendHelper backendHelper = new AndroidBackendHelper();
+		backendHelper.set();
 
 		LocalizationBackend locBack = new AndroidLocalizationBackend(this);
 		LocalizationHelper.setBackend(locBack);
