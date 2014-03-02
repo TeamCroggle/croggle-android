@@ -10,7 +10,6 @@ import com.badlogic.gdx.backends.android.surfaceview.FillResolutionStrategy;
 
 import de.croggle.AlligatorApp;
 import de.croggle.backends.AndroidBackendHelper;
-import de.croggle.backends.BackendHelper;
 import de.croggle.backends.android.AndroidLocalizationBackend;
 import de.croggle.data.LocalizationHelper;
 
@@ -19,6 +18,7 @@ public class TestHelper {
 	private static TestActivity testContext = null;
 	private static AlligatorApp app = null;
 	private static AndroidLocalizationBackend localizationBackend = null;
+	private static AndroidBackendHelper backendHelper = null;
 
 	private static boolean appContextChanged = true;
 	private static boolean inputContextChanged = true;
@@ -162,8 +162,8 @@ public class TestHelper {
 			localizationContextChanged = false;
 		}
 
-		if (!BackendHelper.isInitialized()) {
-			AndroidBackendHelper backendHelper = new AndroidBackendHelper();
+		if (backendHelper == null) {
+			backendHelper = new AndroidBackendHelper();
 			backendHelper.set();
 		}
 	}
