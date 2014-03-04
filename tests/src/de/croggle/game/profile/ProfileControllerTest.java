@@ -1,15 +1,15 @@
 package de.croggle.game.profile;
 
+import android.test.InstrumentationTestCase;
 import de.croggle.AlligatorApp;
 import de.croggle.data.persistence.Setting;
 import de.croggle.data.persistence.SettingController;
 import de.croggle.data.persistence.Statistic;
 import de.croggle.data.persistence.StatisticController;
 import de.croggle.game.achievement.AchievementController;
-import de.croggle.test.PlatformTestCase;
 import de.croggle.test.TestHelper;
 
-public class ProfileControllerTest extends PlatformTestCase {
+public class ProfileControllerTest extends InstrumentationTestCase {
 
 	ProfileController profileController;
 	SettingController settingController;
@@ -18,7 +18,8 @@ public class ProfileControllerTest extends PlatformTestCase {
 
 	@Override
 	public void setUp() {
-		AlligatorApp app = TestHelper.getApp(this);
+		TestHelper.setupAll(getInstrumentation().getTargetContext());
+		AlligatorApp app = TestHelper.getApp();
 		profileController = app.getProfileController();
 		settingController = app.getSettingController();
 		statisticController = app.getStatisticController();
@@ -95,6 +96,7 @@ public class ProfileControllerTest extends PlatformTestCase {
 		String oldName = "Tim";
 		String oldPicturePath = "assets/picture1";
 		try {
+			profileController.editCurrentProfile(oldName, oldPicturePath);
 			profileController.createNewProfile(oldName, oldPicturePath);
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
@@ -139,6 +141,13 @@ public class ProfileControllerTest extends PlatformTestCase {
 		assertTrue(profileController.getCurrentProfileName().equals(oldName)
 				&& profileController.getCurrentProfile().getPicturePath()
 						.equals(oldPicturePath));
+
+		try {
+			profileController.editCurrentProfile(newName, newPicturePath);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertTrue(true);
+		}
 
 	}
 
@@ -231,5 +240,105 @@ public class ProfileControllerTest extends PlatformTestCase {
 						.equals("assets/picture1"));
 
 	}
+
+	public void testUpdateListeners() {
+		ProfileChangeListenerMockUp mockUp1 = new ProfileChangeListenerMockUp();
+		ProfileChangeListenerMockUp mockUp2 = new ProfileChangeListenerMockUp();
+
+		profileController.addProfileChangeListener(mockUp1);
+		profileController.addProfileChangeListener(mockUp2);
+
+		try {
+			profileController.addProfileChangeListener(null);
+			fail();
+		} catch (IllegalArgumentException iae) {
+			assertTrue(true);
+		}
+
+		String name1 = "Max";
+		String picturePath1 = "assets/picture1";
+		
+		try {
+			profileController.createNewProfile(name1, picturePath1);
+		} catch (IllegalArgumentException e) {
+			fail();
+		} catch (ProfileOverflowException e) {
+			fail();
+		}
+
+		assertTrue(mockUp1.getLastReceivedProfile().getName().equals(name1)
+				&& mockUp1.getLastReceivedProfile().getPicturePath().equals(
+						picturePath1));
+		
+		assertTrue(mockUp2.getLastReceivedProfile().getName().equals(name1)
+				&& mockUp2.getLastReceivedProfile().getPicturePath().equals(
+						picturePath1));
+		
+		String name2 = "Tom";
+		String picturePath2 = "assets/picture2";
+		
+		try {
+			profileController.createNewProfile(name2, picturePath2);
+		} catch (IllegalArgumentException e) {
+			fail();
+		} catch (ProfileOverflowException e) {
+			fail();
+		}
+
+		assertTrue(mockUp1.getLastReceivedProfile().getName().equals(name2)
+				&& mockUp1.getLastReceivedProfile().getPicturePath().equals(
+						picturePath2));
+		
+		assertTrue(mockUp2.getLastReceivedProfile().getName().equals(name2)
+				&& mockUp2.getLastReceivedProfile().getPicturePath().equals(
+						picturePath2));
+		
+		profileController.changeCurrentProfile(name1);
+		
+		assertTrue(mockUp1.getLastReceivedProfile().getName().equals(name1)
+				&& mockUp1.getLastReceivedProfile().getPicturePath().equals(
+						picturePath1));
+		
+		assertTrue(mockUp2.getLastReceivedProfile().getName().equals(name1)
+				&& mockUp2.getLastReceivedProfile().getPicturePath().equals(
+						picturePath1));
+	}
+
+	public void testGetAllProfiles() {
+		String name1 = "Anne";
+		String name2 = "Tim";
+		String name3 = "Lea";
+		String name4 = "Tom";
+		String picturePath = "assets/picture1";
+
+		assertTrue(profileController.getAllProfiles().isEmpty());
+
+		try {
+			profileController.createNewProfile(name1, picturePath);
+			profileController.createNewProfile(name2, picturePath);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (ProfileOverflowException e) {
+			e.printStackTrace();
+		}
+
+		assertTrue(profileController.getAllProfiles().size() == 2);
+
+		profileController.deleteCurrentProfile();
+
+		assertTrue(profileController.getAllProfiles().size() == 1);
+
+		try {
+			profileController.createNewProfile(name3, picturePath);
+			profileController.createNewProfile(name4, picturePath);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (ProfileOverflowException e) {
+			e.printStackTrace();
+		}
+
+		assertTrue(profileController.getAllProfiles().size() == 3);
+	}
+
 
 }
