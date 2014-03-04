@@ -49,7 +49,7 @@ public class AndroidBackendHelper extends BackendHelper {
 	}
 
 	public static Context getAndroidContext() {
-		return (Context) Gdx.app;
+		return ((AndroidBackendHelper) backend).getContext();
 	}
 
 	@Override
@@ -109,5 +109,9 @@ public class AndroidBackendHelper extends BackendHelper {
 	@Override
 	protected String assetDirPath() {
 		return "";
+	}
+
+	protected Context getContext() {
+		return (Context) Gdx.app;
 	}
 }

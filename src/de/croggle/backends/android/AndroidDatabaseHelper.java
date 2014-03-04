@@ -7,7 +7,7 @@ import de.croggle.backends.sqlite.Database;
 import de.croggle.backends.sqlite.DatabaseHelper;
 
 public class AndroidDatabaseHelper extends DatabaseHelper {
-	private final Helper helper;
+	private final SQLiteOpenHelper helper;
 
 	/**
 	 * Creates a new DatabaseHelper which is used for managing the database.
@@ -16,7 +16,7 @@ public class AndroidDatabaseHelper extends DatabaseHelper {
 	 *            the context used to create the database
 	 */
 	public AndroidDatabaseHelper(Context context) {
-		helper = new Helper(context);
+		helper = instantiateHelper(context);
 	}
 
 	@Override
@@ -29,10 +29,13 @@ public class AndroidDatabaseHelper extends DatabaseHelper {
 		helper.close();
 	}
 
+	protected SQLiteOpenHelper instantiateHelper(Context context) {
+		return new Helper(context);
+	}
+
 	private class Helper extends SQLiteOpenHelper {
 		public Helper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_Version);
-			// TODO Auto-generated constructor stub
 		}
 
 		@Override

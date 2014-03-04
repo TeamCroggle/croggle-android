@@ -2,18 +2,19 @@ package de.croggle.data.persistence.manager;
 
 import java.util.List;
 
-import android.test.AndroidTestCase;
 import de.croggle.game.profile.Profile;
+import de.croggle.test.PlatformTestCase;
+import de.croggle.test.TestDatabaseHelper;
 import de.croggle.test.TestHelper;
 
-public class ProfileManagerTest extends AndroidTestCase {
+public class ProfileManagerTest extends PlatformTestCase {
 
 	private ProfileManager profileManager;
 
 	@Override
 	public void setUp() {
-		TestHelper.setupAll(getContext());
-		getContext().deleteDatabase("persistenceDB");
+		TestHelper.setupAll(this);
+		getContext().deleteDatabase(TestDatabaseHelper.TEST_DB_NAME);
 		profileManager = new ProfileManager();
 		profileManager.open();
 	}

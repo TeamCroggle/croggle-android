@@ -1,15 +1,15 @@
 package de.croggle.game.profile;
 
-import android.test.InstrumentationTestCase;
 import de.croggle.AlligatorApp;
 import de.croggle.data.persistence.Setting;
 import de.croggle.data.persistence.SettingController;
 import de.croggle.data.persistence.Statistic;
 import de.croggle.data.persistence.StatisticController;
 import de.croggle.game.achievement.AchievementController;
+import de.croggle.test.PlatformTestCase;
 import de.croggle.test.TestHelper;
 
-public class ProfileControllerTest extends InstrumentationTestCase {
+public class ProfileControllerTest extends PlatformTestCase {
 
 	ProfileController profileController;
 	SettingController settingController;
@@ -18,8 +18,7 @@ public class ProfileControllerTest extends InstrumentationTestCase {
 
 	@Override
 	public void setUp() {
-		TestHelper.setupAll(getInstrumentation().getTargetContext());
-		AlligatorApp app = TestHelper.getApp();
+		AlligatorApp app = TestHelper.getApp(this);
 		profileController = app.getProfileController();
 		settingController = app.getSettingController();
 		statisticController = app.getStatisticController();
@@ -81,7 +80,7 @@ public class ProfileControllerTest extends InstrumentationTestCase {
 		} catch (ProfileOverflowException e) {
 			fail();
 		}
-		
+
 		try {
 			profileController.createNewProfile("", picturePath1);
 			fail();
@@ -91,7 +90,7 @@ public class ProfileControllerTest extends InstrumentationTestCase {
 			fail();
 		}
 	}
-	
+
 	public void testEditCurrentProfile() {
 		String oldName = "Tim";
 		String oldPicturePath = "assets/picture1";
@@ -105,30 +104,31 @@ public class ProfileControllerTest extends InstrumentationTestCase {
 		assertTrue(profileController.getCurrentProfileName().equals(oldName)
 				&& profileController.getCurrentProfile().getPicturePath()
 						.equals(oldPicturePath));
-		
+
 		Setting setting = new Setting(0.1f, 1f, false, true);
-		Statistic statistic = new Statistic(-2, -2, -2, -2, -2, -2, -2, -2, -2, -2);
+		Statistic statistic = new Statistic(-2, -2, -2, -2, -2, -2, -2, -2, -2,
+				-2);
 
 		settingController.editCurrentSetting(setting);
 		statisticController.editCurrentStatistic(statistic);
-		
+
 		settingController.editCurrentSetting(setting);
 		statisticController.editCurrentStatistic(statistic);
-		
+
 		assertTrue(settingController.getCurrentSetting().equals(setting));
 		assertTrue(statisticController.getCurrentStatistic().equals(statistic));
-		
+
 		String newName = "Hans";
 		String newPicturePath = "assets/picture7";
-		
+
 		profileController.editCurrentProfile(newName, newPicturePath);
-		
+
 		assertTrue(profileController.getCurrentProfileName().equals(newName)
 				&& profileController.getCurrentProfile().getPicturePath()
 						.equals(newPicturePath));
 		assertTrue(settingController.getCurrentSetting().equals(setting));
 		assertTrue(statisticController.getCurrentStatistic().equals(statistic));
-		
+
 		try {
 			profileController.createNewProfile(oldName, oldPicturePath);
 		} catch (IllegalArgumentException e) {
@@ -139,8 +139,7 @@ public class ProfileControllerTest extends InstrumentationTestCase {
 		assertTrue(profileController.getCurrentProfileName().equals(oldName)
 				&& profileController.getCurrentProfile().getPicturePath()
 						.equals(oldPicturePath));
-		
-			
+
 	}
 
 	public void testDeleteCurrentProfile() {
@@ -156,21 +155,22 @@ public class ProfileControllerTest extends InstrumentationTestCase {
 		assertTrue(profileController.getCurrentProfileName().equals(name)
 				&& profileController.getCurrentProfile().getPicturePath()
 						.equals(picturePath));
-		
+
 		Setting setting = new Setting(0.1f, 1f, true, false);
-		Statistic statistic = new Statistic(-2, -2, -2, -2, -2, -2, -2, -2, -2, -2);
+		Statistic statistic = new Statistic(-2, -2, -2, -2, -2, -2, -2, -2, -2,
+				-2);
 
 		settingController.editCurrentSetting(setting);
 		statisticController.editCurrentStatistic(statistic);
-		
+
 		settingController.editCurrentSetting(setting);
 		statisticController.editCurrentStatistic(statistic);
 
 		assertTrue(settingController.getCurrentSetting().equals(setting));
 		assertTrue(statisticController.getCurrentStatistic().equals(statistic));
-		
+
 		profileController.deleteCurrentProfile();
-		
+
 		assertTrue(profileController.getCurrentProfile() == null);
 		assertTrue(statisticController.getCurrentStatistic() == null);
 		assertTrue(settingController.getCurrentSetting().equals(new Setting()));

@@ -1,18 +1,17 @@
 package de.croggle.game.level;
 
 import junit.framework.Assert;
-import android.test.InstrumentationTestCase;
 import de.croggle.AlligatorApp;
+import de.croggle.test.PlatformTestCase;
 import de.croggle.test.TestHelper;
 
-public class LevelControllerTest extends InstrumentationTestCase {
+public class LevelControllerTest extends PlatformTestCase {
 
 	LevelController controller;
 
 	@Override
 	protected void setUp() throws Exception {
-		TestHelper.setupAll(getInstrumentation().getTargetContext());
-		AlligatorApp app = TestHelper.getApp();
+		AlligatorApp app = TestHelper.getApp(this);
 		controller = new LevelController(0, app);
 	}
 
