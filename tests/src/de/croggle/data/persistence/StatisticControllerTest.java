@@ -1,20 +1,19 @@
 package de.croggle.data.persistence;
 
-import android.test.InstrumentationTestCase;
 import de.croggle.AlligatorApp;
 import de.croggle.game.profile.ProfileController;
 import de.croggle.game.profile.ProfileOverflowException;
+import de.croggle.test.PlatformTestCase;
 import de.croggle.test.TestHelper;
 
-public class StatisticControllerTest extends InstrumentationTestCase {
+public class StatisticControllerTest extends PlatformTestCase {
 
 	ProfileController profileController;
 	StatisticController statisticController;
 
 	@Override
 	public void setUp() {
-		TestHelper.setupAll(getInstrumentation().getTargetContext());
-		AlligatorApp app = TestHelper.getApp();
+		AlligatorApp app = TestHelper.getApp(this);
 		profileController = app.getProfileController();
 		statisticController = app.getStatisticController();
 		profileController.deleteAllProfiles();

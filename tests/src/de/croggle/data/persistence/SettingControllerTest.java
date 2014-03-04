@@ -4,17 +4,17 @@ import android.test.InstrumentationTestCase;
 import de.croggle.AlligatorApp;
 import de.croggle.game.profile.ProfileController;
 import de.croggle.game.profile.ProfileOverflowException;
+import de.croggle.test.PlatformTestCase;
 import de.croggle.test.TestHelper;
 
-public class SettingControllerTest extends InstrumentationTestCase {
+public class SettingControllerTest extends PlatformTestCase {
 	
 	ProfileController profileController;
 	SettingController settingController;
 
 	@Override
 	public void setUp() {
-		TestHelper.setupAll(getInstrumentation().getTargetContext());
-		AlligatorApp app = TestHelper.getApp();
+		AlligatorApp app = TestHelper.getApp(this);
 		profileController = app.getProfileController();
 		settingController = app.getSettingController();
 		profileController.deleteAllProfiles();

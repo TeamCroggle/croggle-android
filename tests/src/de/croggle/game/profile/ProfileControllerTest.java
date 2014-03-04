@@ -1,15 +1,15 @@
 package de.croggle.game.profile;
 
-import android.test.InstrumentationTestCase;
 import de.croggle.AlligatorApp;
 import de.croggle.data.persistence.Setting;
 import de.croggle.data.persistence.SettingController;
 import de.croggle.data.persistence.Statistic;
 import de.croggle.data.persistence.StatisticController;
 import de.croggle.game.achievement.AchievementController;
+import de.croggle.test.PlatformTestCase;
 import de.croggle.test.TestHelper;
 
-public class ProfileControllerTest extends InstrumentationTestCase {
+public class ProfileControllerTest extends PlatformTestCase {
 
 	ProfileController profileController;
 	SettingController settingController;
@@ -18,8 +18,7 @@ public class ProfileControllerTest extends InstrumentationTestCase {
 
 	@Override
 	public void setUp() {
-		TestHelper.setupAll(getInstrumentation().getTargetContext());
-		AlligatorApp app = TestHelper.getApp();
+		AlligatorApp app = TestHelper.getApp(this);
 		profileController = app.getProfileController();
 		settingController = app.getSettingController();
 		statisticController = app.getStatisticController();
@@ -242,8 +241,8 @@ public class ProfileControllerTest extends InstrumentationTestCase {
 	}
 
 	public void testUpdateListeners() {
-		ProfileChangeListenerMockUp mockUp1 = new ProfileChangeListenerMockUp();
-		ProfileChangeListenerMockUp mockUp2 = new ProfileChangeListenerMockUp();
+		ProfileChangeListenerStub mockUp1 = new ProfileChangeListenerStub();
+		ProfileChangeListenerStub mockUp2 = new ProfileChangeListenerStub();
 
 		profileController.addProfileChangeListener(mockUp1);
 		profileController.addProfileChangeListener(mockUp2);
