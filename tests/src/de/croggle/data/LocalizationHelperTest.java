@@ -4,23 +4,20 @@ import static de.croggle.data.LocalizationHelper._;
 
 import java.util.Locale;
 
-import android.test.InstrumentationTestCase;
-import de.croggle.backends.LocalizationBackend;
-import de.croggle.backends.android.AndroidLocalizationBackend;
+import de.croggle.test.PlatformTestCase;
+import de.croggle.test.TestHelper;
 
-public class AndroidLocalizationBackendTest extends InstrumentationTestCase {
+public class LocalizationHelperTest extends PlatformTestCase {
 
 	@Override
 	public void setUp() {
-		LocalizationBackend locBack = new AndroidLocalizationBackend(
-				getInstrumentation().getContext());
-		LocalizationHelper.setBackend(locBack);
+		TestHelper.setupCroggleBackends(this);
 		LocalizationHelper.setApplicationLocale(LocalizationHelper
 				.getSystemLocale());
 	}
 
 	public void testAppName() {
-		String expected = "Croggle Test";
+		String expected = "Croggle";
 		String actual = _("app_name");
 
 		assertEquals(expected, actual);

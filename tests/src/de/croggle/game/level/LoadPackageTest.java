@@ -3,25 +3,17 @@ package de.croggle.game.level;
 import java.util.List;
 
 import junit.framework.Assert;
-import android.content.Context;
-import android.content.res.AssetManager;
-import android.test.InstrumentationTestCase;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.android.AndroidFiles;
-
 import de.croggle.AlligatorApp;
+import de.croggle.test.PlatformTestCase;
+import de.croggle.test.TestHelper;
 
-public class LoadPackageTest extends InstrumentationTestCase {
+public class LoadPackageTest extends PlatformTestCase {
 
 	AlligatorApp app;
 
 	@Override
 	protected void setUp() {
-		Context ctxt = getInstrumentation().getTargetContext();
-		AssetManager man = ctxt.getAssets();
-		String abspath = ctxt.getFilesDir().getAbsolutePath();
-		Gdx.files = new AndroidFiles(man, abspath);
+		TestHelper.setupGdxFiles(this);
 		app = new AlligatorApp();
 	}
 

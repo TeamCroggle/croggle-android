@@ -14,7 +14,7 @@ public class ProfileManagerTest extends PlatformTestCase {
 	@Override
 	public void setUp() {
 		TestHelper.setupAll(this);
-		getContext().deleteDatabase(TestDatabaseHelper.TEST_DB_NAME);
+		TestHelper.deleteDatabase(this, TestDatabaseHelper.TEST_DB_NAME);
 		profileManager = new ProfileManager();
 		profileManager.open();
 	}

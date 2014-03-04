@@ -1,8 +1,10 @@
 package de.croggle.test;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.backends.android.AndroidFiles;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.mock.audio.MockAudio;
 import com.badlogic.gdx.backends.headless.mock.graphics.MockGraphics;
@@ -76,6 +78,15 @@ public class TestHelper {
 		gdxAppContextChanged = false;
 	}
 
+	public static void setupGdxFiles(PlatformTestCase test) {
+		if (Gdx.files == null) {
+			Context context = test.getContext();
+			AssetManager man = context.getAssets();
+			String abspath = context.getFilesDir().getAbsolutePath();
+			Gdx.files = new AndroidFiles(man, abspath);
+		}
+	}
+
 	public static void setupGdxInput() {
 		if (Gdx.input == null) {
 			Gdx.input = new MockInput();
@@ -111,13 +122,17 @@ public class TestHelper {
 
 		if (localizationBackend == null || backendContextChanged) {
 			localizationBackend = new AndroidLocalizationBackend(testContext);
-			LocalizationHelper.setBackend(localizationBackend);
-			backendContextChanged = false;
 		}
+		LocalizationHelper.setBackend(localizationBackend);
 
 		if (backendHelper == null || backendContextChanged) {
 			backendHelper = new TestBackendHelper(testContext);
-			backendHelper.set();
 		}
+		backendHelper.set();
+		backendContextChanged = false;
+	}
+
+	public static void deleteDatabase(PlatformTestCase test, String name) {
+		test.getContext().deleteDatabase(name);
 	}
 }

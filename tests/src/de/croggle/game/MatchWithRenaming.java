@@ -2,7 +2,6 @@ package de.croggle.game;
 
 import java.util.Iterator;
 
-import android.util.SparseArray;
 import de.croggle.game.board.AgedAlligator;
 import de.croggle.game.board.Board;
 import de.croggle.game.board.BoardObject;
@@ -11,6 +10,7 @@ import de.croggle.game.board.Egg;
 import de.croggle.game.board.InternalBoardObject;
 import de.croggle.game.board.Parent;
 import de.croggle.game.board.operations.BoardObjectVisitor;
+import de.croggle.util.SparseArray;
 
 /**
  * A board operation that offers functionality to compare alligator expressions
@@ -24,7 +24,7 @@ public class MatchWithRenaming implements BoardObjectVisitor {
 
 	private boolean match = true;
 	private BoardObject toCompare;
-	private SparseArray<Color> mapping;
+	private final SparseArray<Color> mapping;
 
 	private MatchWithRenaming(BoardObject toCompare) {
 		this.toCompare = toCompare;
@@ -54,7 +54,7 @@ public class MatchWithRenaming implements BoardObjectVisitor {
 		}
 
 		if (mapping.get(one.getId()) == null) {
-			mapping.append(one.getId(), two);
+			mapping.put(one.getId(), two);
 			return true;
 		} else {
 			return mapping.get(one.getId()).equals(two);

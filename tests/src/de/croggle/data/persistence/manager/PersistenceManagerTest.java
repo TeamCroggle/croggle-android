@@ -182,7 +182,6 @@ public class PersistenceManagerTest extends PlatformTestCase {
 
 		SparseArray<Integer> sia = persistenceManager
 				.getAllUnlockedAchievements("Tim");
-		System.out.println(sia.size());
 		assertTrue(sia.size() == achievementController
 				.getAvailableAchievements().size());
 
