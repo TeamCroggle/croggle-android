@@ -55,7 +55,7 @@ public class StatisticControllerTest extends PlatformTestCase {
 			e.printStackTrace();
 		}
 
-		Statistic newStatistic = new Statistic(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		Statistic newStatistic = new Statistic(1, 2, 3, 4, 5,  7, 8, 9);
 		statisticController.editCurrentStatistic(newStatistic);
 
 		assertTrue(statisticController.getCurrentStatistic().equals(
@@ -91,17 +91,18 @@ public class StatisticControllerTest extends PlatformTestCase {
 			e.printStackTrace();
 		}
 
-		Statistic statisticsDelta = new Statistic(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		Statistic statisticsDelta = new Statistic(1, 2, 3, 4, 5, 6, 7, 8);
 		statisticController.processDelta(statisticsDelta);
 
 		assertTrue(statisticController.getCurrentStatistic().equals(
 				statisticsDelta));
 
-		Statistic result = new Statistic(2, 4, 6, 8, 10, 12, 14, 16, 18, 20);
+		Statistic result = new Statistic(2, 4, 6, 8, 10, 12, 14, 16);
 		statisticController.processDelta(statisticsDelta);
 
 		assertTrue(statisticController.getCurrentStatistic().equals(result));
 
 	}
+	
 
 }

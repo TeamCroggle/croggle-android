@@ -107,8 +107,7 @@ public class ProfileControllerTest extends PlatformTestCase {
 						.equals(oldPicturePath));
 
 		Setting setting = new Setting(0.1f, 1f, false, true);
-		Statistic statistic = new Statistic(-2, -2, -2, -2, -2, -2, -2, -2, -2,
-				-2);
+		Statistic statistic = new Statistic(-2, -2, -2, -2, -2, -2, -2, -2);
 
 		settingController.editCurrentSetting(setting);
 		statisticController.editCurrentStatistic(statistic);
@@ -204,7 +203,7 @@ public class ProfileControllerTest extends PlatformTestCase {
 		assertTrue(settingController.getCurrentSetting().equals(new Setting()));
 
 		Setting setting = new Setting(0.5f, 0.6f, true, true);
-		Statistic statistic = new Statistic(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		Statistic statistic = new Statistic(1, 2, 3, 4, 5, 6, 7, 8);
 
 		settingController.editCurrentSetting(setting);
 		statisticController.editCurrentStatistic(statistic);
