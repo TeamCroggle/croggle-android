@@ -48,14 +48,4 @@ public class RingBufferTest extends TestCase {
 		testEmptyPop();
 	}
 	
-	public void testEqualsZero() throws Exception {
-		try {
-			ringBuffer = new RingBuffer<Object>(0);
-			fail();
-		}
-		catch(AssertionError e) {
-			assertTrue(true);
-		}
-		
-	}
 }
