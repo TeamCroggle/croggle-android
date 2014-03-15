@@ -5,9 +5,12 @@ import junit.framework.TestCase;
 public class RingBufferTest extends TestCase {
 	private final static int TEST_SIZE = 30;
 	private RingBuffer<Object> ringBuffer;
+	private PatternBuilder patternBuilder;
 
 	protected void setUp() {
 		ringBuffer = new RingBuffer<Object>(TEST_SIZE);
+		patternBuilder = new PatternBuilder();
+		
 	}
 
 	public void testPush() {
@@ -47,5 +50,22 @@ public class RingBufferTest extends TestCase {
 		}
 		testEmptyPop();
 	}
-	
+
+	public void testPushSize() {
+		assertTrue(ringBuffer.size() == 0);
+		Object object = new Object();
+		ringBuffer.push(object);
+		assertTrue(ringBuffer.size() == 1);
+		ringBuffer.push(object);
+		assertTrue(ringBuffer.size() == 2);
+	}
+
+	public void testIllegalSize() throws IllegalArgumentException {
+		try {
+			ringBuffer = new RingBuffer<Object>(-1);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertTrue(true);
+		}
+	}
 }
