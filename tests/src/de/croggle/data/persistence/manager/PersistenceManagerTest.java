@@ -9,6 +9,7 @@ import de.croggle.data.persistence.Setting;
 import de.croggle.data.persistence.Statistic;
 import de.croggle.game.achievement.Achievement;
 import de.croggle.game.achievement.AchievementController;
+import de.croggle.game.achievement.AlligatorsEatenAchievement;
 import de.croggle.game.achievement.TimeAchievement;
 import de.croggle.game.profile.Profile;
 import de.croggle.test.PlatformTestCase;
@@ -205,7 +206,7 @@ public class PersistenceManagerTest extends PlatformTestCase {
 				levelProgress2));
 	}
 
-	public void testUpdateUnlockedAchievements() {
+	public void testInsertAndSaveUnlockedAchievements() {
 
 		Profile profile = new Profile("Tim", "test");
 		persistenceManager.addProfile(profile);
@@ -214,6 +215,7 @@ public class PersistenceManagerTest extends PlatformTestCase {
 				.getAllUnlockedAchievements("Tim");
 		assertTrue(sia.size() == achievementController
 				.getAvailableAchievements().size());
+
 		
 		List<Achievement> achievements = new ArrayList<Achievement>();
 		Achievement achievement1 = new TimeAchievement();
@@ -238,6 +240,10 @@ public class PersistenceManagerTest extends PlatformTestCase {
 		assertTrue(sia.get(1) == 2);
 		assertTrue(sia.get(2) == 5);
 		assertTrue(sia.get(3) == 10);
+=======
+		List<Achievement> testlist = new ArrayList<Achievement>();
+		persistenceManager.saveUnlockedAchievements("tim", testlist);
+>>>>>>> Testtransfer from Desktop: PersistenceManagerTest
 
 	}
 	
