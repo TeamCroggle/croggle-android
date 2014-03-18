@@ -240,10 +240,8 @@ public class PersistenceManagerTest extends PlatformTestCase {
 		assertTrue(sia.get(1) == 2);
 		assertTrue(sia.get(2) == 5);
 		assertTrue(sia.get(3) == 10);
-=======
 		List<Achievement> testlist = new ArrayList<Achievement>();
 		persistenceManager.saveUnlockedAchievements("tim", testlist);
->>>>>>> Testtransfer from Desktop: PersistenceManagerTest
 
 	}
 	
