@@ -106,4 +106,24 @@ public class SimulatorTest extends TestCase {
 		fail("Evaluated to " + AlligatorToLambda.convert(evaluated)
 				+ ", expected " + AlligatorToLambda.convert(outputBoard));
 	}
+
+	public void testStackoverflowIssue() {
+		try {
+			Simulator sim = new Simulator(
+					LambdaToAlligator.convert("λg.(λx.g (x x)) (λx.g (x x))"),
+					new ColorController(), new BoardEventMessenger());
+			while (true) {
+				try {
+					sim.evaluate();
+				} catch (ColorOverflowException e) {
+					fail("Colors are NOT supposed to overflow");
+				} catch (AlligatorOverflowException e) {
+					// Alligators are supposed to overflow
+					return;
+				}
+			}
+		} catch (IllegalBoardException e) {
+			fail("Board should not have errors");
+		}
+	}
 }
