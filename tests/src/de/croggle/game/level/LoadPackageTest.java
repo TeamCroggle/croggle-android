@@ -32,6 +32,12 @@ public class LoadPackageTest extends PlatformTestCase {
 				"Levelpaket zum Erlernen von Croggle.");
 	}
 
+	
+	public void testCotroller(){
+		LevelPackagesController controller = new LevelPackagesController(app);
+		assertTrue(controller.getPackageSize(0) == 12);
+	}
+	
 	public void testGetter() {
 		LevelPackagesController controller = new LevelPackagesController(app);
 		List<LevelPackage> list = controller.getLevelPackages();
@@ -45,5 +51,6 @@ public class LoadPackageTest extends PlatformTestCase {
 		LevelPackage test02 = new LevelPackage(1, "test", "test description",
 				"not interesting", false, null, " test");
 		assertNull(test02.getAnimation());
+		
 	}
 }
