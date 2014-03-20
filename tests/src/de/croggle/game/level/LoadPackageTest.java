@@ -29,22 +29,21 @@ public class LoadPackageTest extends PlatformTestCase {
 		List<LevelPackage> list = controller.getLevelPackages();
 		LevelPackage one = list.get(0);
 		Assert.assertEquals(one.getDescription(),
-				"Levelpaket zum Erlernen von Croggel.");
+				"Levelpaket zum Erlernen von Croggle.");
 	}
-	
+
 	public void testGetter() {
 		LevelPackagesController controller = new LevelPackagesController(app);
 		List<LevelPackage> list = controller.getLevelPackages();
 		LevelPackage packageOne = list.get(0);
-		assertNotNull(packageOne.getAnimation());
+		assertNull(packageOne.getAnimation());
 		assertNotNull(packageOne.getDescription());
 		assertNotNull(packageOne.getDesign());
 		assertNotNull(packageOne.getEmblemPath());
 		assertNotNull(packageOne.getName());
 		assertNotNull(packageOne.getLevelPackageId());
 		LevelPackage test02 = new LevelPackage(1, "test", "test description",
-				"not interesting", false, null,
-				" test");
+				"not interesting", false, null, " test");
 		assertNull(test02.getAnimation());
 	}
 }
