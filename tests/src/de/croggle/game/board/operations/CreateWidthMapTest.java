@@ -7,11 +7,11 @@ import junit.framework.TestCase;
 import com.badlogic.gdx.math.Vector2;
 
 import de.croggle.game.Color;
-import de.croggle.game.board.AgedAlligator;
 import de.croggle.game.board.Board;
 import de.croggle.game.board.BoardObject;
 import de.croggle.game.board.ColoredAlligator;
 import de.croggle.game.board.Egg;
+import de.croggle.game.board.Parent;
 import de.croggle.ui.renderer.layout.ActorLayoutConfiguration;
 import de.croggle.ui.renderer.layout.TreeGrowth;
 import de.croggle.util.convert.LambdaToAlligator;
@@ -36,16 +36,34 @@ public class CreateWidthMapTest extends TestCase {
 
 	public void testCase0() {
 		// standard layout options
+		final float w = 150;
+		final float s = 0.75f;
+		final float p = 2;
 		ActorLayoutConfiguration config = new ActorLayoutConfiguration(
 				new Vector2(0, 0), TreeGrowth.NEG_POS, TreeGrowth.POS_NEG,
-				TreeGrowth.NEG_POS, TreeGrowth.NEG_POS, .75f, 2, 2, null,
-				false, 150, 150, 150, 150, 150, 150);
+				TreeGrowth.NEG_POS, TreeGrowth.NEG_POS, s, p, p, null, false,
+				w, w, w, w, w, w);
 
 		Board b = LambdaToAlligator.convert("(λx.x) ((λy.y) (λz.z))");
 		Map<BoardObject, Float> map = CreateWidthMap.create(b,
 				config.getUniformObjectWidth(),
 				config.getVerticalScaleFactor(), config.getHorizontalPadding());
-		AgedAlligator aa = (AgedAlligator) b.iterator(1).next();
-		assertEquals(226.5, map.get(aa), 1e-8);
+		float expected = Math.max(w, w * s) + p
+				+ Math.max(w, 2 * Math.max(w * s, w * s * s) + p * s);
+		assertEquals(expected, map.get(b), 1e-8);
+		expected = Math.max(w, 2 * Math.max(w * s, w * s * s) + p * s);
+		assertEquals(expected, map.get(b.getChildAtPosition(1)), 1e-8);
+		expected = Math.max(w, w * s);
+		assertEquals(expected, map.get(b.getChildAtPosition(0)), 1e-8);
+		expected = w * s;
+		assertEquals(expected, map.get(((Parent) b.getChildAtPosition(0))
+				.getChildAtPosition(0)), 1e-8);
+	}
+
+	public void testCaseNoScaling() {
+		Board b = LambdaToAlligator.convert("(λx.x) ((λy.y) (λz.z))");
+		Map<BoardObject, Float> map = CreateWidthMap.create(b, 1, 1, 0);
+		assertEquals(3.f, map.get(b), 1e-8);
+		assertEquals(1.f, map.get(b.getChildAtPosition(0)), 1e-8);
 	}
 }
