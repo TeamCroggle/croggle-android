@@ -49,6 +49,9 @@ print "Selecting the category 'game'"
 device.touch (calcWidth(1000), calcHeight(210), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
+print "Clicking the 'back' button"
+device.touch (calcWidth(100), calcHeight(90), "DOWN_AND_UP")
+MonkeyRunner.sleep(2)
 
 
 

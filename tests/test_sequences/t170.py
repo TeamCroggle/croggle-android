@@ -6,7 +6,7 @@ import os
 # Prerequisites:
 # - the placement screen is displayed
 # - the lambda term that was created in T160 is displayed
-#   (other lambda terms that are big enough might work too)
+#   (other lambda terms might work too)
 # This was tested on a device with a display resolution of 1280x720
 
 
@@ -54,6 +54,14 @@ MonkeyRunner.sleep(2)
 
 print "Clicking the 'next' button"
 device.touch (calcWidth(1150), calcHeight(600), "DOWN_AND_UP")
+MonkeyRunner.sleep(3)
+
+print "Clicking the 'ingame menu' button"
+device.touch (calcWidth(90), calcHeight(100), "DOWN_AND_UP")
+MonkeyRunner.sleep(2)
+
+print "Clicking the 'main menu' button"
+device.touch (calcWidth(600), calcHeight(650), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
 

@@ -31,7 +31,7 @@ print "Clicking the plus symobol"
 device.touch (calcWidth(600), calcHeight(430), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
-print "Pressing the text field"
+print "Clicking the text field"
 device.touch (calcWidth(600), calcHeight(310), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 

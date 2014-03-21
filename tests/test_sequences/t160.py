@@ -4,9 +4,8 @@ import sys
 import os
 
 # Prerequisites:
-# - the main menu screen is displayed
 # - there is an active profile
-# - level 4 in package 1 is unlocked
+# - level 4 in package 1 is freshly loaded into the placement screen
 # - the zoom buttons are enabled
 # This was tested on a device with a display resolution of 1280x720
 
@@ -27,7 +26,7 @@ def addAgedAlligator(x, y):
 	MonkeyRunner.sleep(2)
 
 def colorBoardObject(objectX, objectY, colorX, colorY) :
-	print "Clicking the uncollerd board object"
+	print "Clicking an uncollerd board object to color it"
 	device.touch (calcWidth(objectX), calcHeight(objectY), "DOWN_AND_UP")
 	MonkeyRunner.sleep(2)
 
@@ -49,23 +48,23 @@ device = MonkeyRunner.waitForConnection()
 displayWidth = device.getProperty("display.width")
 displayHeight = device.getProperty("display.height")
 
-
-print "Clicking the 'play' button"
-device.touch (calcWidth(450), calcHeight(350), "DOWN_AND_UP")
+print "Clicking the 'ingame menu' button"
+device.touch (calcWidth(90), calcHeight(100), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
-print "Selecting a level package"
-device.touch (calcWidth(400), calcHeight(400), "DOWN_AND_UP")
+print "Clicking the 'reset' button"
+device.touch (calcWidth(600), calcHeight(190), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
-print "Selecting the first level"
-device.touch (calcWidth(1050), calcHeight(170), "DOWN_AND_UP")
-MonkeyRunner.sleep(2)
 
 addEgg(400,150)
 
 addAlligator(400, 150)
-colorBoardObject(610, 110, 710, 260)
+colorBoardObject(610, 110, 600, 260)
+
+print "Removing the alligator from the screen"
+device.drag ((calcWidth(630), calcHeight(100)), (calcWidth(1150), calcHeight(370)), 3, 3)
+MonkeyRunner.sleep(4)
 
 print "Clicking the 'zoom in' button"
 device.drag ((calcWidth(90), calcHeight(510)), (calcWidth(90), calcHeight(510)), 1, 50)
@@ -94,10 +93,10 @@ MonkeyRunner.sleep(2)
 for i in range(3):
 
 	addAlligator(800, 90)
-	colorBoardObject(800, 90, 710, 260)
+	colorBoardObject(800, 90, 600, 260)
 
 	addEgg(800, 90)
-	colorBoardObject(780, 170, 710, 260)
+	colorBoardObject(780, 170, 600, 260)
 
 	print "Moving the screen camera"
 	device.drag ((calcWidth(900), calcHeight(200)), (calcWidth(700), calcHeight(200)), 1, 50)

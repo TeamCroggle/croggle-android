@@ -37,6 +37,10 @@ print "Clicking the 'ok' button"
 device.touch (calcWidth(430), calcHeight(530), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
+print "Selecting one user"
+device.touch (calcWidth(640), calcHeight(320), "DOWN_AND_UP")
+MonkeyRunner.sleep(2)
+
 
 
 print "Finishing the test sequence" 

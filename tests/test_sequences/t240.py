@@ -5,7 +5,7 @@ import sys
 import os
 
 # Prerequisites:
-# none
+# - the main menu screen is displayed
 # This was tested on a device with a display resolution of 1280x720
 
 def calcWidth(width):
@@ -17,14 +17,6 @@ def calcHeight(height):
 print "Starting test sequence T240"
 
 device = MonkeyRunner.waitForConnection()
-
-print "Installing the apk"
-device.installPackage('../../bin/croggle-android.apk')
-runComponent = 'de.croggle' + '/' + 'de.croggle.MainActivity'
-
-print "Starting the app"
-device.startActivity(component=runComponent)
-MonkeyRunner.sleep(18)
 
 displayWidth = device.getProperty("display.width")
 displayHeight = device.getProperty("display.height")
