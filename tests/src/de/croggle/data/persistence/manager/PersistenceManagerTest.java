@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.croggle.AlligatorApp;
+import de.croggle.backends.sqlite.SQLException;
 import de.croggle.data.persistence.LevelProgress;
 import de.croggle.data.persistence.Setting;
 import de.croggle.data.persistence.Statistic;
@@ -12,6 +13,7 @@ import de.croggle.game.achievement.AchievementController;
 import de.croggle.game.achievement.AlligatorsEatenAchievement;
 import de.croggle.game.achievement.TimeAchievement;
 import de.croggle.game.profile.Profile;
+import de.croggle.game.profile.ProfileOverflowException;
 import de.croggle.test.PlatformTestCase;
 import de.croggle.test.TestHelper;
 import de.croggle.util.SparseArray;
@@ -76,6 +78,41 @@ public class PersistenceManagerTest extends PlatformTestCase {
 
 		assertTrue(persistenceManager.isNameUsed("Anne"));
 
+	}
+	
+	public void testProblematicStrings() {
+		try {
+			String[] problematicStrings = {" ' ", " '' ", " \" "};
+			String picturePath = " \" ' ";
+			for (int i = 0; i < problematicStrings.length; i++) {
+				String problematicString = problematicStrings[i];
+				
+				Profile profile = new Profile(problematicString, picturePath);
+				persistenceManager.addProfile(profile);
+				
+				assertTrue(persistenceManager.getProfile(problematicString).equals(profile));
+				assertTrue(persistenceManager.getStatistic(problematicString).equals(new Statistic()));
+				assertTrue(persistenceManager.getSetting(problematicString).equals(new Setting()));
+				
+				LevelProgress levelProgress = new LevelProgress(0, false, problematicString, 0);
+				persistenceManager.saveLevelProgress(problematicString, levelProgress);
+				assertTrue(persistenceManager.getLevelProgress(problematicString, 0).equals(levelProgress));
+				
+				Achievement achievement = new TimeAchievement();
+				achievement.setId(-1);
+				achievement.setIndex(100);
+				
+				List<Achievement> achievements = new ArrayList<Achievement>();
+				achievements.add(achievement);
+				
+				persistenceManager.saveUnlockedAchievements(problematicString, achievements);
+				assertTrue(persistenceManager.getAllUnlockedAchievements(problematicString).get(-1) == achievement.getIndex());
+;				
+				}
+		} catch (SQLException sqle) {
+			fail();
+		}
+		
 	}
 
 	public void testGetAllProfiles() {
