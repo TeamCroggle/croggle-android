@@ -90,18 +90,15 @@ public class MainActivity extends AndroidApplication {
 			threadConstructor.setAccessible(true);
 			Object newThread = threadConstructor.newInstance((Object[]) null);
 			threadField.set(null, newThread);
+			/*
+			 * Now all the reflection exception goodness
+			 */
 		} catch (NoSuchFieldException ignored) {
-			ignored.printStackTrace();
 		} catch (IllegalAccessException ignored) {
-			ignored.printStackTrace();
 		} catch (IllegalArgumentException ignored) {
-			ignored.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+		} catch (NoSuchMethodException ignored) {
+		} catch (InstantiationException ignored) {
+		} catch (InvocationTargetException ignored) {
 		}
 	}
 
