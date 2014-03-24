@@ -1,10 +1,16 @@
 package de.croggle;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import android.os.Bundle;
 import android.os.PowerManager.WakeLock;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.badlogic.gdx.utils.Timer;
 
 import de.croggle.backends.AndroidBackendHelper;
 import de.croggle.backends.BackendHelper;
@@ -64,6 +70,39 @@ public class MainActivity extends AndroidApplication {
 		wakeLock = null;
 		super.onResume();
 		wakeLock = w;
+
+		/*
+		 * In case our timer thread has not survived: Definitively kill it by
+		 * calling dispose() and create a new one
+		 */
+		try {
+			Field threadField = Timer.class.getDeclaredField("thread");
+			threadField.setAccessible(true);
+			Object oldThread = threadField.get(null);
+			Class<?> threadClass = oldThread.getClass();
+			Method disposeMethod = threadClass.getDeclaredMethod("dispose",
+					(Class<?>[]) null);
+			disposeMethod.setAccessible(true);
+			disposeMethod.invoke(oldThread, (Object[]) null);
+
+			Constructor<?> threadConstructor = threadClass
+					.getConstructor((Class<?>[]) null);
+			threadConstructor.setAccessible(true);
+			Object newThread = threadConstructor.newInstance((Object[]) null);
+			threadField.set(null, newThread);
+		} catch (NoSuchFieldException ignored) {
+			ignored.printStackTrace();
+		} catch (IllegalAccessException ignored) {
+			ignored.printStackTrace();
+		} catch (IllegalArgumentException ignored) {
+			ignored.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
