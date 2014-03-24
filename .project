@@ -40,4 +40,26 @@
 		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>assets</name>
+			<type>2</type>
+			<locationURI>PROJECT_LOC/croggle/assets</locationURI>
+		</link>
+		<link>
+			<name>res</name>
+			<type>2</type>
+			<locationURI>PROJECT_LOC/croggle/res</locationURI>
+		</link>
+		<link>
+			<name>libs/gdx-freetype.jar</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/croggle/libs/gdx-freetype.jar</locationURI>
+		</link>
+		<link>
+			<name>libs/gdx.jar</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/croggle/libs/gdx.jar</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
