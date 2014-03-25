@@ -54,6 +54,43 @@ public class MainActivity extends AndroidApplication {
 		config.a = 8;
 
 		initialize(new AlligatorApp(), config);
+
+		/*
+		 * In case our timer thread has not survived: Definitively kill it by
+		 * calling dispose() and create a new one
+		 */
+		try {
+			Field threadField = Timer.class.getDeclaredField("thread");
+			threadField.setAccessible(true);
+			Object oldThread = threadField.get(null);
+
+			if (oldThread != null) {
+				Class<?> threadClass = oldThread.getClass();
+				Method disposeMethod = threadClass.getDeclaredMethod("dispose",
+						(Class<?>[]) null);
+				disposeMethod.setAccessible(true);
+				// dispose invocation erases all preexisting Timer instances
+				// from
+				// the TimerThread queue!
+				disposeMethod.invoke(oldThread, (Object[]) null);
+
+				Constructor<?> threadConstructor = threadClass
+						.getConstructor((Class<?>[]) null);
+				threadConstructor.setAccessible(true);
+				Object newThread = threadConstructor
+						.newInstance((Object[]) null);
+				threadField.set(null, newThread);
+			}
+			/*
+			 * Now all the reflection exception goodness
+			 */
+		} catch (NoSuchFieldException ignored) {
+		} catch (IllegalAccessException ignored) {
+		} catch (IllegalArgumentException ignored) {
+		} catch (NoSuchMethodException ignored) {
+		} catch (InstantiationException ignored) {
+		} catch (InvocationTargetException ignored) {
+		}
 	}
 
 	public WakeLock getWakeLock() {
@@ -71,37 +108,6 @@ public class MainActivity extends AndroidApplication {
 		super.onResume();
 		wakeLock = w;
 
-		/*
-		 * In case our timer thread has not survived: Definitively kill it by
-		 * calling dispose() and create a new one
-		 */
-		try {
-			Field threadField = Timer.class.getDeclaredField("thread");
-			threadField.setAccessible(true);
-			Object oldThread = threadField.get(null);
-			Class<?> threadClass = oldThread.getClass();
-			Method disposeMethod = threadClass.getDeclaredMethod("dispose",
-					(Class<?>[]) null);
-			disposeMethod.setAccessible(true);
-			// dispose invocation erases all preexisting Timer instances from
-			// the TimerThread queue!
-			disposeMethod.invoke(oldThread, (Object[]) null);
-
-			Constructor<?> threadConstructor = threadClass
-					.getConstructor((Class<?>[]) null);
-			threadConstructor.setAccessible(true);
-			Object newThread = threadConstructor.newInstance((Object[]) null);
-			threadField.set(null, newThread);
-			/*
-			 * Now all the reflection exception goodness
-			 */
-		} catch (NoSuchFieldException ignored) {
-		} catch (IllegalAccessException ignored) {
-		} catch (IllegalArgumentException ignored) {
-		} catch (NoSuchMethodException ignored) {
-		} catch (InstantiationException ignored) {
-		} catch (InvocationTargetException ignored) {
-		}
 	}
 
 	@Override
