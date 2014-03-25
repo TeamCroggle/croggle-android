@@ -83,6 +83,8 @@ public class MainActivity extends AndroidApplication {
 			Method disposeMethod = threadClass.getDeclaredMethod("dispose",
 					(Class<?>[]) null);
 			disposeMethod.setAccessible(true);
+			// dispose invocation erases all preexisting Timer instances from
+			// the TimerThread queue!
 			disposeMethod.invoke(oldThread, (Object[]) null);
 
 			Constructor<?> threadConstructor = threadClass
