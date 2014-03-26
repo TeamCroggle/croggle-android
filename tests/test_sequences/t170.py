@@ -7,7 +7,9 @@ import os
 # - the placement screen is displayed
 # - the lambda term that was created in T160 is displayed
 #   (other lambda terms might work too)
+
 # This was tested on a device with a display resolution of 1280x720
+# Sometimes an error appears while running a test case for the first time, restarting it usually solves this problem
 
 
 def calcWidth(width):
@@ -46,22 +48,10 @@ MonkeyRunner.sleep(2)
 
 print "Clicking the 'start simulation' button"
 device.touch (calcWidth(1120), calcHeight(500), "DOWN_AND_UP")
-MonkeyRunner.sleep(5)
+MonkeyRunner.sleep(10)
 
-print "Clicking the 'start simulation' button"
-device.touch (calcWidth(1160), calcHeight(60), "DOWN_AND_UP")
-MonkeyRunner.sleep(2)
-
-print "Clicking the 'next' button"
+print "Clicking the 'next level' button"
 device.touch (calcWidth(1150), calcHeight(600), "DOWN_AND_UP")
-MonkeyRunner.sleep(3)
-
-print "Clicking the 'ingame menu' button"
-device.touch (calcWidth(90), calcHeight(100), "DOWN_AND_UP")
-MonkeyRunner.sleep(2)
-
-print "Clicking the 'main menu' button"
-device.touch (calcWidth(600), calcHeight(650), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
 

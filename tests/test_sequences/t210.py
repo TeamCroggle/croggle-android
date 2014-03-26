@@ -3,10 +3,12 @@ import commands
 import sys
 import os
 
-# Prerequisites:
+# Prerequisites
 # - level 1 package 1 is freshly loaded into the placement screen
-# - there is an active profile
+# - the level is played with a freshly created profile
+
 # This was tested on a device with a display resolution of 1280x720
+# Sometimes an error appears while running a test case for the first time, restarting it usually solves this problem
 
 
 def calcWidth(width):
@@ -39,20 +41,12 @@ print "Closing the tutorial"
 device.touch (calcWidth(1020), calcHeight(560), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
-print "Opening the goal board pop up"
+print "Opening the 'goal board' pop up"
 device.touch (calcWidth(100), calcHeight(400), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
-print "Closing the goal board pop up"
+print "Closing the 'goal board' pop up"
 device.touch (calcWidth(1080), calcHeight(400), "DOWN_AND_UP")
-MonkeyRunner.sleep(2)
-
-print "Clicking the 'hint' button"
-device.touch (calcWidth(100), calcHeight(250), "DOWN_AND_UP")
-MonkeyRunner.sleep(2)
-
-print "Clicking the 'okay' button"
-device.touch (calcWidth(660), calcHeight(650), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
 print "Clicking the uncolored egg"
@@ -60,7 +54,7 @@ device.touch (calcWidth(600), calcHeight(100), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
 print "Selecting a color"
-device.touch (calcWidth(600), calcHeight(470), "DOWN_AND_UP")
+device.touch (calcWidth(690), calcHeight(350), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
 print "Clicking the 'play' button"
@@ -75,9 +69,18 @@ print "Clicking the 'step forward' button"
 device.touch (calcWidth(1180), calcHeight(320), "DOWN_AND_UP")
 MonkeyRunner.sleep(4)
 
-print "Clicking the 'main menu' button"
-device.touch (calcWidth(960), calcHeight(620), "DOWN_AND_UP")
+print "Clicking the 'achievements' button"
+device.touch (calcWidth(120), calcHeight(600), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
+
+print "Closing the 'achievements' pop up"
+device.touch (calcWidth(930), calcHeight(600), "DOWN_AND_UP")
+MonkeyRunner.sleep(2)
+
+print "Clicking the 'level menu' button"
+device.touch (calcWidth(810), calcHeight(600), "DOWN_AND_UP")
+MonkeyRunner.sleep(2)
+
 
 
 print "Finishing the test sequence" 

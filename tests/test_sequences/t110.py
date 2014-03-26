@@ -5,8 +5,10 @@ import os
 
 # Prerequisites:
 # - the main menu screen is displayed
-# - there is exactly one profile stored and its name is not 'tom'
+# - there is exactly one profile stored and its not named 'tom'
+
 # This was tested on a device with a display resolution of 1280x720
+# Sometimes an error appears while running a test case for the first time, restarting it usually solves this problem
 
 def calcWidth(width):
 	return int(int(displayWidth) * int(width) / int(1280))

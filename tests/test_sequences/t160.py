@@ -4,10 +4,12 @@ import sys
 import os
 
 # Prerequisites:
-# - there is an active profile
+# - there is an freshly created profile
 # - level 4 in package 1 is freshly loaded into the placement screen
 # - the zoom buttons are enabled
+
 # This was tested on a device with a display resolution of 1280x720
+# Sometimes an error appears while running a test case for the first time, restarting it usually solves this problem
 
 def addAlligator(x, y):
 	print "Dragging an alligator on to the screen"
@@ -105,7 +107,7 @@ for i in range(3):
 addAgedAlligator(800, 90)
 
 addEgg(800, 90)
-colorBoardObject(765, 150, 710, 450)
+colorBoardObject(800, 150, 710, 450)
 
 addEgg(800, 90), 
 colorBoardObject(900, 150, 710, 450)

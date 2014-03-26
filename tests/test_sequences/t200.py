@@ -7,7 +7,9 @@ import os
 # - level 4 in package 2 is loaded freshly into the placement screen 
 #   (any other multiple choice level that does not have a tutorial will probably work fine too)
 # - there is an active profile
+
 # This was tested on a device with a display resolution of 1280x720
+# Sometimes an error appears while running a test case for the first time, restarting it usually solves this problem
 
 
 def calcWidth(width):
@@ -37,19 +39,11 @@ device.touch (calcWidth(640), calcHeight(520), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
 print "Selecting the second answer"
-device.touch (calcWidth(930), calcHeight(90), "DOWN_AND_UP")
-MonkeyRunner.sleep(2)
-
-print "Moving the screen camera"
-device.drag ((calcWidth(1100), calcHeight(300)), (calcWidth(100), calcHeight(300)), 0.5, 50)
+device.touch (calcWidth(670), calcHeight(90), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
 print "Selecting the third answer"
-device.touch (calcWidth(960), calcHeight(90), "DOWN_AND_UP")
-MonkeyRunner.sleep(2)
-
-print "Moving the screen camera"
-device.drag ((calcWidth(300), calcHeight(300)), (calcWidth(1000), calcHeight(300)), 0.5, 50)
+device.touch (calcWidth(1020), calcHeight(90), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
 print "Opening the goal board pop up"
@@ -61,7 +55,7 @@ device.touch (calcWidth(1080), calcHeight(640), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
 print "Selecting the first answer"
-device.touch (calcWidth(300), calcHeight(90), "DOWN_AND_UP")
+device.touch (calcWidth(330), calcHeight(90), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
 print "Clicking the 'play' button"
@@ -72,8 +66,8 @@ print "Clicking the 'play' button"
 device.touch (calcWidth(1140), calcHeight(500), "DOWN_AND_UP")
 MonkeyRunner.sleep(20)
 
-print "Clicking the 'main menu' button"
-device.touch (calcWidth(960), calcHeight(620), "DOWN_AND_UP")
+print "Clicking the 'restart' button"
+device.touch (calcWidth(1150), calcHeight(600), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
 

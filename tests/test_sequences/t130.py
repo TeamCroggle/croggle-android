@@ -6,7 +6,9 @@ import os
 # Prerequisites:
 # - the main menu screen is displayed
 # - there is an active profile
+
 # This was tested on a device with a display resolution of 1280x720
+# Sometimes an error appears while running a test case for the first time, restarting it usually solves this problem
 
 def calcWidth(width):
 	return int(int(displayWidth) * int(width) / int(1280))
@@ -37,7 +39,7 @@ print "Clicking the text field"
 device.touch (calcWidth(600), calcHeight(310), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
-print "Presing the letter g"
+print "Pressing the letter g"
 device.touch (calcWidth(650), calcHeight(528),"DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 

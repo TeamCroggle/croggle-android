@@ -5,7 +5,9 @@ import os
 
 # Prerequisites:
 # - the main menu screen is displayed
+
 # This was tested on a device with a display resolution of 1280x720
+# Sometimes an error appears while running a test case for the first time, restarting it usually solves this problem
 
 
 def calcWidth(width):
