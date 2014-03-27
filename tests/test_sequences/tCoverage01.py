@@ -5,7 +5,7 @@ import os
 
 # Prerequisites:
 # - the app is in the 5th level of the first level package
-# - an alligator with another alligator beneath it with an egg beneath it was added to the board
+# - an alligator(colored in any color) with another alligator(also colored. in a different color) beneath it with an egg beneath it was added to the board
 # - the zoom buttons are enabled
 
 # This was tested on a device with a display resolution of 1280x720
@@ -52,8 +52,12 @@ print "Clicking the 'zoom +' button (in Simulation mode)"
 device.touch (calcWidth(60), calcHeight(403), "DOWN_AND_UP")
 MonkeyRunner.sleep(2)
 
+print "Clicking the 'zoom -' button(in Simulation mode)"
+device.drag ((calcWidth(60), calcHeight(490)), (calcWidth(60), calcHeight(490)), 1, 50)
+MonkeyRunner.sleep(2)
+
 print "Clicking the 'zoom +' button(in Simulation mode)"
-device.touch (calcWidth(60), calcHeight(403), "DOWN_AND_UP")
+device.drag ((calcWidth(60), calcHeight(403)), (calcWidth(60), calcHeight(403)), 1, 50)
 MonkeyRunner.sleep(2)
 
 print "Clicking the 'zoom -' button(in Simulation mode)"
