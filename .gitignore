@@ -2,3 +2,4 @@ bin/
 assets/textures
 gen/
 local.properties
+keystore
